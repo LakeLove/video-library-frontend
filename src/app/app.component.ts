@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Video } from './video';
+import { VideoService } from './video.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-video-library';
+  title = 'client';
+  videos: Video[] = []
+
+  constructor(private videoService: VideoService) { }
+
+  ngOnInit(){
+    this.getVideos()
+  }
+
+  getVideos(){
+      this.videoService.getAllVideos().subscribe(videos => this.videos = videos);
+  }
 }
