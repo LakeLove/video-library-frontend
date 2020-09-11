@@ -9,15 +9,7 @@ import { VideoService } from './video.service';
 })
 export class AppComponent {
   title = 'client';
-  videos: Video[] = []
 
-  constructor(private videoService: VideoService) { }
+  constructor() { }
 
-  ngOnInit(){
-    this.getVideos()
-  }
-
-  getVideos(){
-      this.videoService.getAllVideos().subscribe(videos => this.videos = videos);
-  }
 }
