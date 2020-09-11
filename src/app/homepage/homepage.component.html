@@ -1,0 +1,20 @@
+<h2>All Videos</h2>
+<div>
+  <!-- (click) passes input value to add() and then clears the input -->
+</div>
+<ul class="videos">
+  <li *ngFor="let video of videos">
+    <div class="video-thumbnail">
+      <div class="video-wrapper">
+        <div class="video-title">
+          <a routerLink="/videos/{{video.id}}">{{video.title}}</a>
+        </div>
+        <video class="video" controls="controls" width="320" height="240"
+              name="Video Name" src={{video.filePath}}></video>
+        <h3 class="author">By: {{video.author}}</h3>
+        <p class="description">{{video.description}}</p>
+      </div>
+    </div>
+  </li>
+</ul>
+<router-outlet></router-outlet>
