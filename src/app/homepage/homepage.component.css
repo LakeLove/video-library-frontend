@@ -1,0 +1,45 @@
+.videos {
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+  }
+
+.video-title { 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    width: 100%;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+a:link, a:visited {
+    background-color:black;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: auto;
+    position: relative;
+}
+  
+a:hover, a:active {
+    background-color: red;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.video-wrapper {
+    margin: auto;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
