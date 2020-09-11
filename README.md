@@ -1,4 +1,4 @@
-# AngularVideoLibrary
+# Video Library
 
 Front end Angular Application to go along with ChannelCashMoney's backend (https://github.com/LakeLove/video-library)
 
