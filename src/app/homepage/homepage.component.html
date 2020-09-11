@@ -4,11 +4,17 @@
 </div>
 <ul class="videos">
   <li *ngFor="let video of videos">
-    <a routerLink="/videos/{{video.id}}">{{video.title}}</a>
-    <video controls="controls" width="800" height="600"
-           name="Video Name" src={{video.filePath}}></video>
-    <h3 class="author">{{video.author}}</h3>
-    <p class="description">{{video.description}}</p>
+    <div class="video-thumbnail">
+      <div class="video-wrapper">
+        <div class="video-title">
+          <a routerLink="/videos/{{video.id}}">{{video.title}}</a>
+        </div>
+        <video class="video" controls="controls" width="320" height="240"
+              name="Video Name" src={{video.filePath}}></video>
+        <h3 class="author">By: {{video.author}}</h3>
+        <p class="description">{{video.description}}</p>
+      </div>
+    </div>
   </li>
 </ul>
 <router-outlet></router-outlet>
