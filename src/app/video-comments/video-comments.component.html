@@ -3,16 +3,14 @@
   <ul>
     <li *ngFor="let comment of comments">
       <div class="comment-wrapper">
-        <h4 class="timestamp">{{comment.comment_timestamp}}</h4>
+        <p>{{comment.comment_timestamp | date:'medium'}}</p>
         <p class="text">{{comment.comment_text}}</p>
       </div>
     </li>
   </ul>
 </div>
 <div>
-  <label>Comment:
     <input #commentText />
-  </label>
   <!-- (click) passes input value to add() and then clears the input -->
   <button (click)="addVideoComment(commentText.value); commentText.value=''">Submit</button>
 </div>
