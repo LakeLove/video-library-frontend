@@ -1,6 +1,5 @@
 <div *ngIf="comments">{{videoId}}
 <h3>Comments</h3>
-<body>
   <ul>
     <li *ngFor="let comment of comments">
       <div class="comment-wrapper">
@@ -9,5 +8,11 @@
       </div>
     </li>
   </ul>
-</body>
+</div>
+<div>
+  <label>Comment:
+    <input #commentText />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="addVideoComment(commentText.value); commentText.value=''">Submit</button>
 </div>
