@@ -2,8 +2,9 @@
 <body>
     <h2 class="title">{{video.title}}</h2>
     <video controls="controls" width="800" height="600"
-           name="Video Name" src={{video.filePath}}></video>
+           name="Video Name" [src]="video.filePath"></video>
     <h3 class="author">{{video.author}}</h3>
     <p class="description">{{video.description}}</p>
 </body>
 </div>
+<app-video-comments [videoId] = "video.id"></app-video-comments>

@@ -1,0 +1,13 @@
+<div *ngIf="comments">{{videoId}}
+<h3>Comments</h3>
+<body>
+  <ul>
+    <li *ngFor="let comment of comments">
+      <div class="comment-wrapper">
+        <h4 class="timestamp">{{comment.comment_timestamp}}</h4>
+        <p class="text">{{comment.comment_text}}</p>
+      </div>
+    </li>
+  </ul>
+</body>
+</div>
