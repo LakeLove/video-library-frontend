@@ -10,7 +10,7 @@ import { CommentService } from '../comment.service';
 export class VideoCommentsComponent implements OnChanges {
 
   comments: Comment[];
-  @Input() videoId: number | undefined;
+  @Input() videoId: number;
 
   constructor(private commentService: CommentService) { }
 
