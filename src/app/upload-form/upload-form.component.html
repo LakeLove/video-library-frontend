@@ -1,0 +1,26 @@
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit(uploadForm.value)">
+
+    <div>
+        <label for="title">
+          Title
+        </label>
+        <input id="title" type="text" formControlName="title">
+      </div>
+    
+      <div>
+        <label for="author">
+          Author
+        </label>
+        <input id="author" type="text" formControlName="author">
+      </div>
+
+      <div>
+        <label for="description">
+          Description
+        </label>
+        <input id="description" type="text" formControlName="description">
+      </div>
+
+    <button class="button" type="submit">Upload</button>
+  
+</form>

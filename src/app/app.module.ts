@@ -11,6 +11,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VideoCommentsComponent } from './video-comments/video-comments.component';
+import { UploadPageComponent } from './upload-page/upload-page.component';
+import { UploadFormComponent } from './upload-form/upload-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,13 +22,17 @@ import { VideoCommentsComponent } from './video-comments/video-comments.componen
     HomepageComponent,
     ToolbarComponent,
     VideoCommentsComponent,
+    UploadPageComponent,
+    UploadFormComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     MatToolbarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
