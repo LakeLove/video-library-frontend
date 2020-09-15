@@ -21,6 +21,15 @@
         <input id="description" type="text" formControlName="description">
       </div>
 
+      <div>
+        <label for="file">
+          Select Video File
+        </label>
+        <input type="file" (change)="onFileChange($event)" placeholder="Upload file" accept=".MOV,.mp4">
+      </div>
+
+
+
     <button class="button" type="submit">Upload</button>
   
 </form>
