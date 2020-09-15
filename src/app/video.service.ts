@@ -30,8 +30,7 @@ export class VideoService {
     let endpoint = 'https://channelcashmoney.herokuapp.com/storage/uploadFile'
     const formData: FormData = new FormData();
     formData.append('file', uploadVideo, uploadVideo.name);
-    console.log(formData.get('file'))
-    return this.httpClient.post<any>(endpoint, formData)
+    return this.httpClient.post<any>(endpoint, formData, {responseType: 'text' as 'json'})
   }
 
   postVideo(toUpload: Video): Observable<Video> {

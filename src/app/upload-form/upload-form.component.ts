@@ -33,12 +33,18 @@ export class UploadFormComponent implements OnInit {
     this.uploadVideo.title = uploadData.title
     this.uploadVideo.author = uploadData.author
     this.uploadVideo.description = uploadData.description
-    let fileName: string = '';
+    let fileName: string;
 
     //this.videoService.postVideo(this.uploadVideo).subscribe(video => this.uploadVideo = video)
-    this.videoService.uploadVideo(uploadData.file).subscribe(name => fileName = name.toString())
+    const videoPromise = this.videoService.uploadVideo(uploadData.file).toPromise()
 
-    console.log(fileName)
+    videoPromise.then((name) => 
+    {this.uploadVideo.filePath = name
+    console.log(this.uploadVideo.filePath)
+    })
+    .catch((error)=> console.log(error))
+
+    console.log(this.uploadVideo.filePath)
 
     console.log(this.uploadVideo.title)
   }
