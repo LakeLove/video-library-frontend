@@ -1,3 +1,4 @@
+<div class="formWrapper">
 <form [formGroup]="uploadForm" (ngSubmit)="onSubmit(uploadForm.value)">
 
     <div>
@@ -29,7 +30,8 @@
       </div>
 
 
-
-    <button class="button" type="submit">Upload</button>
-  
+    <div class = "buttonWrapper">
+      <button class="button" type="submit">Upload</button>
+    </div>
 </form>
+</div>
