@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators,} from '@angular/forms';
 import { Video } from '../video';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 import { VideoService } from '../video.service';
+import { SuccessPopupComponent } from '../success-popup/success-popup.component';
 
 @Component({
   selector: 'app-upload-form',
@@ -14,7 +16,7 @@ export class UploadFormComponent implements OnInit {
   uploadVideo: Video;
   uploadForm;
 
-  constructor(private videoService : VideoService, private formBuilder : FormBuilder) { 
+  constructor(private videoService : VideoService, private formBuilder : FormBuilder, private dialog: MatDialog) { 
     this.uploadForm = this.formBuilder.group({
       title: '',
       author: '',
@@ -38,10 +40,13 @@ export class UploadFormComponent implements OnInit {
     //this.videoService.postVideo(this.uploadVideo).subscribe(video => this.uploadVideo = video)
     const videoPromise = this.videoService.uploadVideo(uploadData.file).toPromise()
 
-    videoPromise.then((name) => 
-    {this.uploadVideo.filePath = name
-    this.videoService.postVideo(this.uploadVideo).subscribe()
-    })
+    videoPromise.then((name) => {
+      this.uploadVideo.filePath = name
+      const uploadPromise = this.videoService.postVideo(this.uploadVideo).toPromise()
+      uploadPromise.then((uploaded) => {
+        const successDialog = this.dialog.open(SuccessPopupComponent, {data: uploaded})
+      })
+      })
     .catch((error)=> console.log(error))
 
     console.log(this.uploadVideo.filePath)
