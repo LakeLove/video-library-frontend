@@ -40,7 +40,7 @@ export class UploadFormComponent implements OnInit {
 
     videoPromise.then((name) => 
     {this.uploadVideo.filePath = name
-    console.log(this.uploadVideo.filePath)
+    this.videoService.postVideo(this.uploadVideo).subscribe()
     })
     .catch((error)=> console.log(error))
 
