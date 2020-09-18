@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Comment } from '../comment';
-import { CommentService } from '../comment.service';
+import { CommentService } from '../services/comment.service';
 
 @Component({
   selector: 'app-video-comments',
@@ -19,7 +19,7 @@ export class VideoCommentsComponent implements OnChanges {
     this.getVideoComments()
   }
 
-  getVideoComments(){
+  getVideoComments() {
     this.commentService.getComments(this.videoId).subscribe(comments => this.comments = comments);
   }
 

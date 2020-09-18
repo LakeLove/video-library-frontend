@@ -3,8 +3,8 @@ import { FormBuilder, FormControl, Validators,} from '@angular/forms';
 import { Video } from '../video';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
-import { VideoService } from '../video.service';
 import { SuccessPopupComponent } from '../success-popup/success-popup.component';
+import { VideoService } from '../services/video.service';
 
 @Component({
   selector: 'app-upload-form',
