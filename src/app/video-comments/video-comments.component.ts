@@ -19,7 +19,7 @@ export class VideoCommentsComponent implements OnChanges {
     this.getVideoComments()
   }
 
-  getVideoComments(){
+  getVideoComments() {
     this.commentService.getComments(this.videoId).subscribe(comments => this.comments = comments);
   }
 

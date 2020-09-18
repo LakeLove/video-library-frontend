@@ -3,6 +3,7 @@ import { Video } from './video';
 import { VideoService } from './video.service';
 import { Comment } from './comment';
 import { CommentService } from './comment.service';
+import { AuthenticationService } from './authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { CommentService } from './comment.service';
 export class AppComponent {
   title = 'client';
 
-  constructor() { }
-
+  constructor(private authService: AuthenticationService) {
+    authService.handleAuthentication();
+  }
 }
