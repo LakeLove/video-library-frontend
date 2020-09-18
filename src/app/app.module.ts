@@ -17,7 +17,10 @@ import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SuccessPopupComponent } from './success-popup/success-popup.component';
 
+import { AuthenticationGuard } from './services/authentication.guard';
+
 import { ConfigurationService } from './services/configuration.service';
+import { AuthenticationService } from './services/authentication.service';
 
 export function initApp(configService: ConfigurationService) {
   return (): Promise<any> => {
@@ -53,7 +56,7 @@ export function initApp(configService: ConfigurationService) {
       useFactory: initApp,
       deps: [ConfigurationService],
       multi: true
-    }
+    }, AuthenticationService, AuthenticationGuard
   ],
   bootstrap: [AppComponent]
 })
