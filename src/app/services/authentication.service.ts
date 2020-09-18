@@ -21,7 +21,8 @@ export class AuthenticationService {
           clientID: this.configService.clientID,
           domain: this.configService.domain,
           responseType: 'token id_token',
-          redirectUri: 'https://cashmovie.herokuapp.com',
+          //redirectUri: 'https://cashmovie.herokuapp.com',
+          redirectUri: 'http://localhost:4200',
           scope: 'openid read:user_idp_tokens read:users'
         });
   }
@@ -56,7 +57,8 @@ export class AuthenticationService {
 
   public logout(): void {
     this.auth0.logout({
-      returnTo: 'https://cashmovie.herokuapp.com/home'
+      //returnTo: 'https://cashmovie.herokuapp.com/home'
+      returnTo: 'http://localhost:4200'
     });
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');

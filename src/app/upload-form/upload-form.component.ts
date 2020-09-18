@@ -5,6 +5,7 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 import { SuccessPopupComponent } from '../success-popup/success-popup.component';
 import { VideoService } from '../services/video.service';
+import { AuthenticationComponent } from '../authentication/authentication.component';
 
 @Component({
   selector: 'app-upload-form',
@@ -16,7 +17,8 @@ export class UploadFormComponent implements OnInit {
   uploadVideo: Video;
   uploadForm;
 
-  constructor(private videoService : VideoService, private formBuilder : FormBuilder, private dialog: MatDialog) { 
+  constructor(private videoService : VideoService, private formBuilder : FormBuilder, private dialog: MatDialog,
+  private authenticationComponent: AuthenticationComponent) {
     this.uploadForm = this.formBuilder.group({
       title: '',
       author: '',
@@ -26,7 +28,8 @@ export class UploadFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.uploadVideo = {id: null, title:'', author:'', filePath:'', date: null, description:''};
+    this.uploadVideo = {id: null, title:'', author: this.authenticationComponent.username, filePath:'', date: null,
+    description:''};
   }
 
 
