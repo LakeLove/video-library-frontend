@@ -14,6 +14,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { VideoCommentsComponent } from './video-comments/video-comments.component';
 import { UploadPageComponent } from './upload-page/upload-page.component';
 import { UploadFormComponent } from './upload-form/upload-form.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SuccessPopupComponent } from './success-popup/success-popup.component';
 
 import { ConfigurationService } from './services/configuration.service';
 
@@ -32,7 +34,8 @@ export function initApp(configService: ConfigurationService) {
     VideoCommentsComponent,
     AuthenticationComponent,
     UploadPageComponent,
-    UploadFormComponent
+    UploadFormComponent,
+    SuccessPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ export function initApp(configService: ConfigurationService) {
     MatToolbarModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [
     {

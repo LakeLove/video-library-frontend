@@ -1,0 +1,34 @@
+.video-wrapper {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    width: 800px;
+    padding-top: 3%;
+    padding-left: 10%;
+    padding-bottom: 10px;
+    justify-content: center; 
+}
+
+.author{
+    width: 100%;
+    margin-bottom: 10px;
+    max-width: fit-content;
+}
+
+.auth-date{
+    display: inline-flex;
+    width: 100%;
+}
+
+.spacer{
+    width: 50px;
+}
+
+.description-wrapper{
+    width: 100%;
+    height: 10%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px #888888;
+    margin-bottom: 20px;
+    text-align: left;
+    text-indent: 5px;
+}
