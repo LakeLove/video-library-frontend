@@ -1,11 +1,19 @@
 <div *ngIf="video">
 <body>
-    <h2 class="title">{{video.title}}</h2>
-    <video controls="controls" width="800" height="600"
-           name="Video Name" [src]="video.filePath"></video>
-    <h3 class="author">{{video.author}}</h3>
-    <p class="description">{{video.description}}</p>
+  <div class="video-wrapper">    
+    <video controls="controls" width="800" height="600" name="Video Name" [src]="video.filePath"></video>
+    <div class = "video-info">
+      <h2 class="title">{{video.title}}</h2>
+      <div class = "auth-date">
+        <h3 class="author">Uploaded By: {{video.author}}  |  {{video.date | date:'longDate'}}</h3>
+      </div>       
+    </div>
+    <div class = "description-wrapper">
+      <p class="description">{{video.description}}</p>
+    </div>    
+    <app-video-comments [videoId]="video.id"></app-video-comments>
+  </div>
 </body>
-  <app-video-comments [videoId]="video.id"></app-video-comments>
+  
 </div>
 

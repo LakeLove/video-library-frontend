@@ -16,7 +16,6 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(){
     this.getVideos()
-    console.log(process.getegid())
   }
 
   getVideos(){
