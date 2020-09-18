@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Video } from './video';
-import { VideoService } from './video.service';
+import { VideoService } from './services/video.service';
 import { Comment } from './comment';
-import { CommentService } from './comment.service';
-import { AuthenticationService } from './authentication.service';
+import { CommentService } from './services/comment.service';
+import { AuthenticationService } from './services/authentication.service';
 
 @Component({
   selector: 'app-root',

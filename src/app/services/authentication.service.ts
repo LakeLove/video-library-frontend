@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
 import { Observable } from 'rxjs';
-import { ConfigurationService } from './configuration.service';
+import { ConfigurationService } from '../services/configuration.service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({

@@ -15,7 +15,7 @@ import { VideoCommentsComponent } from './video-comments/video-comments.componen
 import { UploadPageComponent } from './upload-page/upload-page.component';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 
-import { ConfigurationService } from './configuration.service';
+import { ConfigurationService } from './services/configuration.service';
 
 export function initApp(configService: ConfigurationService) {
   return (): Promise<any> => {

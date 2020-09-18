@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators,} from '@angular/forms';
 import { Video } from '../video';
 
-import { VideoService } from '../video.service';
+import { VideoService } from '../services/video.service';
 
 @Component({
   selector: 'app-upload-form',
@@ -14,7 +14,7 @@ export class UploadFormComponent implements OnInit {
   uploadVideo: Video;
   uploadForm;
 
-  constructor(private videoService : VideoService, private formBuilder : FormBuilder) { 
+  constructor(private videoService : VideoService, private formBuilder : FormBuilder) {
     this.uploadForm = this.formBuilder.group({
       title: '',
       author: '',
@@ -38,7 +38,7 @@ export class UploadFormComponent implements OnInit {
     //this.videoService.postVideo(this.uploadVideo).subscribe(video => this.uploadVideo = video)
     const videoPromise = this.videoService.uploadVideo(uploadData.file).toPromise()
 
-    videoPromise.then((name) => 
+    videoPromise.then((name) =>
     {this.uploadVideo.filePath = name
     console.log(this.uploadVideo.filePath)
     })
