@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { AuthenticationComponent } from './authentication/authentication.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { SingleVideoComponent } from './single-video/single-video.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -32,7 +31,6 @@ export function initApp(configService: ConfigurationService) {
     HomepageComponent,
     ToolbarComponent,
     VideoCommentsComponent,
-    AuthenticationComponent,
     UploadPageComponent,
     UploadFormComponent,
     SuccessPopupComponent
