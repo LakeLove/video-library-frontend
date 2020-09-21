@@ -17,18 +17,23 @@ export class AuthenticationComponent implements OnInit {
   private authCheck = setInterval( () => {this.isUserLoggedIn = this.authService.isAuthenticated();
   // this.userId = localStorage.getItem('userid');
                                           console.log('authCheck: Initializing');
-                                          console.log('authCheck: isUserLoggedIn is ' + this.isUserLoggedIn);
-                                          console.log('authCheck: username is ' + localStorage.getItem('username'));
                                           this.check++;
                                           console.log('authCheck: check #' + this.check);
+                                          console.log('authCheck: isUserLoggedIn is ' + this.isUserLoggedIn);
+                                          console.log('authCheck: username is ' + localStorage.getItem('username'));
                                           if (this.isUserLoggedIn && localStorage.getItem('username') != null) {
                                             console.log('authCheck: Setting username');
                                             this.setUsername();
                                             console.log('authCheck: Clearing interval');
                                             clearInterval(this.authCheck);
-                                          } else if (!this.isUserLoggedIn && this.check === 5) {
+                                          } else if (!this.isUserLoggedIn && this.check === 5 || this.isUserLoggedIn && this.check === 50) {
+                                            if (localStorage.getItem('username') != null) {
+                                              console.log('authCheck: Logging out');
+                                              this.logout();
+                                            }
                                             console.log('authCheck: Clearing interval');
-                                            clearInterval(this.authCheck); }}, 500);
+                                            clearInterval(this.authCheck);
+                                          }}, 500);
   ngOnInit(): void { }
   logout(): void {
     this.authService.logout();
