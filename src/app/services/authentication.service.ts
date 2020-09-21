@@ -44,12 +44,12 @@ export class AuthenticationService {
   }
 
   private setSession(authResult): void {
-    this.getUsername(authResult);
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     console.log('Loading local storage');
+    this.getUsername();
   }
 
   public logout(): void {
@@ -68,12 +68,12 @@ export class AuthenticationService {
     return new Date().getTime() < expiresAt && expiresAt != null;
   }
 
-  private getUsername(authResult): void {
-    const idToken = JSON.stringify(authResult.idToken);
+  public getUsername(): void {
+    const idToken = JSON.stringify(localStorage.getItem('id_token'));
     const base64Url = idToken.split('.')[1];
     const sub = (JSON.parse(window.atob(base64Url))).sub;
     const result = this.http.get<string>(`https://cashmovie.herokuapp.com/api/users/id=${sub}`);
     // const result = this.http.get<string>(`http://localhost:8080/api/users/id=${sub}`);
-    result.subscribe(username => localStorage.setItem('username', JSON.parse(JSON.stringify(username)) as string));
+    result.subscribe(username => localStorage.setItem('username', JSON.parse(JSON.stringify(username))));
   }
 }

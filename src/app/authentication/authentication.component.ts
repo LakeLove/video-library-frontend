@@ -26,7 +26,11 @@ export class AuthenticationComponent implements OnInit {
                                             this.setUsername();
                                             console.log('authCheck: Clearing interval');
                                             clearInterval(this.authCheck);
-                                          } else if (!this.isUserLoggedIn && this.check === 5 || this.isUserLoggedIn && this.check === 50) {
+                                          } else if (this.isUserLoggedIn && this.check === 50) {
+                                            console.log('authCheck: Getting username');
+                                            this.authService.getUsername();
+                                            this.check = 0;
+                                          } else if (!this.isUserLoggedIn && this.check === 5) {
                                             if (localStorage.getItem('username') != null) {
                                               console.log('authCheck: Logging out');
                                               this.logout();
@@ -43,7 +47,6 @@ export class AuthenticationComponent implements OnInit {
     console.log('Logging in');
     this.authService.login();
     this.isUserLoggedIn = this.authService.isAuthenticated();
-    this.setUsername();
   }
   setUsername(): void {
     this.username = localStorage.getItem('username') as string;
