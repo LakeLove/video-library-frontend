@@ -20,8 +20,8 @@ export class AuthenticationService {
       clientID: 'SuV6X5oMHwf32MnD05J6TjPjjfQRNJnf',
       domain: 'channel-cashmoney.us.auth0.com',
       responseType: 'token id_token',
-      redirectUri: 'https://cashmovie.herokuapp.com',
-      // redirectUri: 'http://localhost:4200',
+      // redirectUri: 'https://cashmovie.herokuapp.com',
+      redirectUri: 'http://localhost:4200',
       scope: 'openid read:user_idp_tokens read:users'
     });
   }
@@ -54,8 +54,8 @@ export class AuthenticationService {
 
   public logout(): void {
     this.auth0.logout({
-      returnTo: 'https://cashmovie.herokuapp.com/home'
-      // returnTo: 'http://localhost:4200'
+      // returnTo: 'https://cashmovie.herokuapp.com/home'
+      returnTo: 'http://localhost:4200'
     });
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
@@ -72,8 +72,8 @@ export class AuthenticationService {
     const idToken = JSON.stringify(authResult.idToken);
     const base64Url = idToken.split('.')[1];
     const sub = (JSON.parse(window.atob(base64Url))).sub;
-    const result = this.http.get<string>(`https://cashmovie.herokuapp.com/api/users/id=${sub}`);
-    // const result = this.http.get<string>(`http://localhost:8080/api/users/id=${sub}`);
-    result.subscribe(username => localStorage.setItem('username', username as string));
+    // const result = this.http.get<string>(`https://cashmovie.herokuapp.com/api/users/id=${sub}`);
+    const result = this.http.get<string>(`http://localhost:8080/api/users/id=${sub}`);
+    result.subscribe(username => {console.log(JSON.parse(JSON.stringify(username))); localStorage.setItem('username', username as string);});
   }
 }
