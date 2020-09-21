@@ -74,6 +74,6 @@ export class AuthenticationService {
     const sub = (JSON.parse(window.atob(base64Url))).sub;
     const result = this.http.get<string>(`https://cashmovie.herokuapp.com/api/users/id=${sub}`);
     // const result = this.http.get<string>(`http://localhost:8080/api/users/id=${sub}`);
-    result.subscribe(username => {console.log(JSON.parse(JSON.stringify(username))); localStorage.setItem('username', username as string);});
+    result.subscribe(username => localStorage.setItem('username', JSON.parse(JSON.stringify(username)) as string));
   }
 }
