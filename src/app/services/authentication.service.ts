@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
 import { Observable } from 'rxjs';
-import { ConfigurationService } from '../services/configuration.service';
+import { ConfigurationService } from './configuration.service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
@@ -22,6 +22,7 @@ export class AuthenticationService {
           domain: this.configService.domain,
           responseType: 'token id_token',
           redirectUri: 'https://cashmovie.herokuapp.com',
+          // redirectUri: 'http://localhost:4200',
           scope: 'openid read:user_idp_tokens read:users'
         });
   }
@@ -44,35 +45,37 @@ export class AuthenticationService {
   }
 
   private setSession(authResult): void {
-    var base64Url = authResult.idToken.split('.')[1];
-    var sub = (JSON.parse(window.atob(base64Url))).sub;
+    const base64Url = authResult.idToken.split('.')[1];
+    const sub = (JSON.parse(window.atob(base64Url))).sub;
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('subject', sub);
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    console.log("Loading local storage");
+    console.log('Loading local storage');
   }
 
   public logout(): void {
     this.auth0.logout({
       returnTo: 'https://cashmovie.herokuapp.com/home'
+      // returnTo: 'http://localhost:4200'
     });
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('subject');
+    localStorage.removeItem('bearer_token');
   }
 
   public isAuthenticated(): boolean {
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+    return new Date().getTime() < expiresAt && expiresAt != null;
   }
 
-  public getUsername(user_id: string, id_token: string): Observable<String> {
+  public getUsername(userId: string, idToken: string): Observable<string> {
     return this.http
-      .get<String>(`https://channel-cashmoney.us.auth0.com/api/v2/users/${user_id}?fields=username&include_fields=true`,
-      {headers: new HttpHeaders().set('authorization', `Bearer ${id_token}`)});
+      .get<string>(`https://channel-cashmoney.us.auth0.com/api/v2/users/${userId}?fields=username&include_fields=true`,
+      {headers: new HttpHeaders().set('authorization', `Bearer ${idToken}`)});
   }
 
 }

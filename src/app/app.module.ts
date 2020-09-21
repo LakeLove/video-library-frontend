@@ -22,7 +22,7 @@ import { ConfigurationService } from './services/configuration.service';
 export function initApp(configService: ConfigurationService) {
   return (): Promise<any> => {
     return configService.initApp();
-  }
+  };
 }
 
 @NgModule({

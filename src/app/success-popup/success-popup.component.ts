@@ -14,10 +14,10 @@ export class SuccessPopupComponent {
 
   constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: Video) {
     this.video = data;
-    console.log(this.video)
+    console.log(this.video);
    }
 
-  openDialog() {
+  openDialog(): void {
     const dialogRef = this.dialog.open(SuccessPopupComponent);
 
     dialogRef.afterClosed().subscribe(result => {
