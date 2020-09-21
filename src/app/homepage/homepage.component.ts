@@ -23,7 +23,6 @@ export class HomepageComponent implements OnInit {
       this.videoService.getAllVideos().subscribe(videos => this.videos = videos);
   }
   getCardClass(index: number): string {
-    console.log(index)
     return this.cardClasses[index % 4];
   }
 }
