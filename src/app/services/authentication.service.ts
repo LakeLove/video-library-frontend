@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
 import { Observable } from 'rxjs';
 import { ConfigurationService } from './configuration.service';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,8 @@ export class AuthenticationService {
           clientID: this.configService.clientID,
           domain: this.configService.domain,
           responseType: 'token id_token',
-          redirectUri: 'https://cashmovie.herokuapp.com',
-          // redirectUri: 'http://localhost:4200',
+          // redirectUri: 'https://cashmovie.herokuapp.com',
+          redirectUri: 'http://localhost:4200',
           scope: 'openid read:user_idp_tokens read:users'
         });
   }
@@ -57,8 +57,8 @@ export class AuthenticationService {
 
   public logout(): void {
     this.auth0.logout({
-      returnTo: 'https://cashmovie.herokuapp.com/home'
-      // returnTo: 'http://localhost:4200'
+      // returnTo: 'https://cashmovie.herokuapp.com/home'
+      returnTo: 'http://localhost:4200'
     });
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
