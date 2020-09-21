@@ -7,47 +7,48 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./authentication.component.css'],
 })
 export class AuthenticationComponent implements OnInit {
-
-  public isUserLoggedIn: boolean;
-  public hasUsername: boolean;
-  public username: string;
-  public userId;
+  // public userId;
 
   constructor(public authService: AuthenticationService) { }
 
-  ngOnInit(): void {
-    setTimeout( () => {this.isUserLoggedIn = this.authService.isAuthenticated();
-                       this.userId = localStorage.getItem('userid');
-                       console.log('Initializing');
-                       this.hasUsername = localStorage.getItem('subject') != null && localStorage.getItem('bearer_token') != null;
-                       if (this.hasUsername && this.username == null) {
-                         this.setUsername();
-                         console.log('Getting username');
-                       }
-                       // } else {
-                       //   localStorage.removeItem('bearer_token');
-                       //   this.isUserLoggedIn = false;
-                       // }
-                       }, 500);
-  }
+  public isUserLoggedIn: boolean;
+  public username: string;
+  private check = 0;
+  private authCheck = setInterval( () => {this.isUserLoggedIn = this.authService.isAuthenticated();
+  // this.userId = localStorage.getItem('userid');
+                                          console.log('authCheck: Initializing');
+                                          this.check++;
+                                          console.log('authCheck: check #' + this.check);
+                                          console.log('authCheck: isUserLoggedIn is ' + this.isUserLoggedIn);
+                                          console.log('authCheck: username is ' + localStorage.getItem('username'));
+                                          if (this.isUserLoggedIn && localStorage.getItem('username') != null) {
+                                            console.log('authCheck: Setting username');
+                                            this.setUsername();
+                                            console.log('authCheck: Clearing interval');
+                                            clearInterval(this.authCheck);
+                                          } else if (this.isUserLoggedIn && this.check === 50) {
+                                            console.log('authCheck: Getting username');
+                                            this.authService.getUsername();
+                                            this.check = 0;
+                                          } else if (!this.isUserLoggedIn && this.check === 5) {
+                                            if (localStorage.getItem('username') != null) {
+                                              console.log('authCheck: Logging out');
+                                              this.logout();
+                                            }
+                                            console.log('authCheck: Clearing interval');
+                                            clearInterval(this.authCheck);
+                                          }}, 500);
+  ngOnInit(): void { }
   logout(): void {
     this.authService.logout();
-    localStorage.removeItem('bearer_token');
-    localStorage.removeItem('username');
     this.isUserLoggedIn = this.authService.isAuthenticated();
   }
   login(): void {
     console.log('Logging in');
     this.authService.login();
-    console.log('Logging in -> setting isUserLoggedIn');
     this.isUserLoggedIn = this.authService.isAuthenticated();
-
   }
   setUsername(): void {
-    this.authService.getUsername(localStorage.getItem('subject'), localStorage.getItem('bearer_token'))
-      .subscribe(username => {
-        localStorage.setItem('username', (JSON.parse(JSON.stringify(username))).username);
-        this.username = localStorage.getItem('username');
-      });
+    this.username = localStorage.getItem('username') as string;
   }
 }
