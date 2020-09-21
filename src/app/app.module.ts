@@ -16,13 +16,8 @@ import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SuccessPopupComponent } from './success-popup/success-popup.component';
 
-import { ConfigurationService } from './services/configuration.service';
+import { LoginComponent } from './login/login.component';
 
-export function initApp(configService: ConfigurationService) {
-  return (): Promise<any> => {
-    return configService.initApp();
-  }
-}
 
 @NgModule({
   declarations: [
@@ -33,7 +28,8 @@ export function initApp(configService: ConfigurationService) {
     VideoCommentsComponent,
     UploadPageComponent,
     UploadFormComponent,
-    SuccessPopupComponent
+    SuccessPopupComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -44,14 +40,6 @@ export function initApp(configService: ConfigurationService) {
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule
-  ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initApp,
-      deps: [ConfigurationService],
-      multi: true
-    }
   ],
   bootstrap: [AppComponent]
 })

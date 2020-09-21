@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Video } from './video';
-import { VideoService } from './services/video.service';
-import { Comment } from './comment';
-import { CommentService } from './services/comment.service';
+import { AppService } from './services/app.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { finalize } from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,10 @@ import { CommentService } from './services/comment.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'client';
+  title = " ";
 
-  constructor() {
+  
+  constructor(private http: HttpClient, private router: Router) {
+
   }
 }
