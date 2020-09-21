@@ -1,17 +1,33 @@
-<div *ngIf="comments">
-<h3>Comments</h3>
-  <ul>
-    <li *ngFor="let comment of comments">
-      <div class="comment-wrapper">
-        <p>{{comment.comment_timestamp | date:'medium'}}</p>
-        <p class="text">{{comment.comment_text}}</p>
-      </div>
+<!--<div *ngIf="comments">-->
+<!--<h3>Comments</h3>-->
+<!--  <ul>-->
+<!--    <li *ngFor="let comment of comments">-->
+<!--      <div class="comment-wrapper">-->
+<!--        <p>{{comment.comment_timestamp | date:'medium'}}</p>-->
+<!--        <p class="text">{{comment.comment_text}}</p>-->
+<!--      </div>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+<!--<div>-->
+<!--    <input class= "comment-in" #commentText />-->
+<!--  &lt;!&ndash; (click) passes input value to add() and then clears the input &ndash;&gt;-->
+<!--  <button (click)="addVideoComment(commentText.value); commentText.value=''">Submit</button>-->
+<!--</div>-->
+
+<div id="comment-group" class="list-group list-group-flush">
+  <div class="d-flex w-100 list-group-item list-group-item-action flex-column align-items-start active">
+    <h1 class="mb-1">Comments</h1>
+  </div>
+  <div>
+    <li *ngFor="let comment of comments" class="list-group-item list-group-item-action">
+      <card-subtitle>{{comment.comment_timestamp | date:'medium'}}</card-subtitle>
+      <p class="comment-text">{{comment.comment_text}}</p>
     </li>
-  </ul>
-</div>
-<div>
-    <input class= "comment-in" #commentText />
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="addVideoComment(commentText.value); commentText.value=''">Submit</button>
+  </div>
+  <div class="form-group">
+    <textarea class="form-control " id="comment-entry" rows="2" placeholder="Enter a comment..." #commentText></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary btn-block" (click)="addVideoComment(commentText.value); commentText.value=''">Submit</button>
 </div>
 

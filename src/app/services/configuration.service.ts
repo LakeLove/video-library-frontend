@@ -9,23 +9,22 @@ export class ConfigurationService {
 
   public clientID;
   public domain;
-  public bearerToken;
 
   constructor(private http: HttpClient) { }
 
-  public getBearerToken(): Observable<String> {
-    return this.http.get<String>("https://channelcashmoney.herokuapp.com/api/AUTH0_API_TOKEN");
+  public getBearerToken(): Observable<string> {
+    return this.http.get<string>('https://channelcashmoney.herokuapp.com/api/AUTH0_API_TOKEN');
   }
 
-  public getClientID(): Observable<String> {
-    return this.http.get<String>("https://channelcashmoney.herokuapp.com/api/AUTH0_CLIENT_ID");
+  public getClientID(): Observable<string> {
+    return this.http.get<string>('https://channelcashmoney.herokuapp.com/api/AUTH0_CLIENT_ID');
   }
 
-  public getDomain(): Observable<String> {
-    return this.http.get<String>("https://channelcashmoney.herokuapp.com/api/AUTH0_DOMAIN");
+  public getDomain(): Observable<string> {
+    return this.http.get<string>('https://channelcashmoney.herokuapp.com/api/AUTH0_DOMAIN');
   }
 
-  public initApp() {
+  public initApp(): Promise<any> {
     return new Promise<any>((resolve) => {
       this.getClientID().subscribe(id => this.clientID = (JSON.parse(JSON.stringify(id))));
       this.getDomain().subscribe(domain => this.domain = (JSON.parse(JSON.stringify(domain))));

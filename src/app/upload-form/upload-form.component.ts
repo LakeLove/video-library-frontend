@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators,} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Video } from '../video';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { SuccessPopupComponent } from '../success-popup/success-popup.component';
 import { VideoService } from '../services/video.service';
@@ -16,49 +16,53 @@ export class UploadFormComponent implements OnInit {
   uploadVideo: Video;
   uploadForm;
 
-  constructor(private videoService : VideoService, private formBuilder : FormBuilder, private dialog: MatDialog) { 
+  constructor(private videoService: VideoService, private formBuilder: FormBuilder, private dialog: MatDialog) {
     this.uploadForm = this.formBuilder.group({
       title: '',
-      author: '',
+      author: localStorage.getItem('username'),
       description: '',
       file: [null, Validators.required]
-    })
+    });
   }
 
   ngOnInit(): void {
-    this.uploadVideo = {id: null, title:'', author:'', filePath:'', date: null, description:''};
+    this.uploadVideo = {id: null, title: '', author: '', filePath: '', date: null, description: ''};
+    // !!! Take me out
+    // const successDialog = this.dialog.open(SuccessPopupComponent, {data: {}});
+
   }
 
 
-  onSubmit(uploadData){
-    console.log('Success')
-    this.uploadVideo.title = uploadData.title
-    this.uploadVideo.author = uploadData.author
-    this.uploadVideo.description = uploadData.description
+  onSubmit(uploadData): void {
+    console.log('Success');
+    this.uploadVideo.title = uploadData.title;
+    this.uploadVideo.author = uploadData.author;
+    this.uploadVideo.description = uploadData.description;
+    // tslint:disable-next-line:prefer-const
     let fileName: string;
 
-    //this.videoService.postVideo(this.uploadVideo).subscribe(video => this.uploadVideo = video)
-    const videoPromise = this.videoService.uploadVideo(uploadData.file).toPromise()
+    // this.videoService.postVideo(this.uploadVideo).subscribe(video => this.uploadVideo = video)
+    const videoPromise = this.videoService.uploadVideo(uploadData.file).toPromise();
 
     videoPromise.then((name) => {
-      this.uploadVideo.filePath = name
-      const uploadPromise = this.videoService.postVideo(this.uploadVideo).toPromise()
+      this.uploadVideo.filePath = name;
+      const uploadPromise = this.videoService.postVideo(this.uploadVideo).toPromise();
       uploadPromise.then((uploaded) => {
-        const successDialog = this.dialog.open(SuccessPopupComponent, {data: uploaded})
+        const successDialog = this.dialog.open(SuccessPopupComponent, {data: uploaded});
+      });
       })
-      })
-    .catch((error)=> console.log(error))
+    .catch((error) => console.log(error));
 
-    console.log(this.uploadVideo.filePath)
+    console.log(this.uploadVideo.filePath);
 
-    console.log(this.uploadVideo.title)
+    console.log(this.uploadVideo.title);
   }
 
-  onFileChange(event) {
+  onFileChange(event): void {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.uploadForm.patchValue({
-        file: file
+        file
       });
     }
   }

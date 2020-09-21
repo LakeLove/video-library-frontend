@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
-import { ConfigurationService } from '../services/configuration.service';
 
 @Component({
   selector: 'app-authentication',
@@ -11,36 +10,44 @@ export class AuthenticationComponent implements OnInit {
 
   public isUserLoggedIn: boolean;
   public hasUsername: boolean;
-  public username;
+  public username: string;
   public userId;
 
-  constructor(public authService: AuthenticationService, public configService: ConfigurationService) { }
+  constructor(public authService: AuthenticationService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     setTimeout( () => {this.isUserLoggedIn = this.authService.isAuthenticated();
                        this.userId = localStorage.getItem('userid');
-                       console.log("Initializing");
+                       console.log('Initializing');
                        this.hasUsername = localStorage.getItem('subject') != null && localStorage.getItem('bearer_token') != null;
                        if (this.hasUsername && this.username == null) {
-                        this.getUsername();
-                        console.log("Getting username");
+                         this.setUsername();
+                         console.log('Getting username');
                        }
+                       // } else {
+                       //   localStorage.removeItem('bearer_token');
+                       //   this.isUserLoggedIn = false;
+                       // }
                        }, 500);
   }
-  logout() {
+  logout(): void {
     this.authService.logout();
     localStorage.removeItem('bearer_token');
+    localStorage.removeItem('username');
     this.isUserLoggedIn = this.authService.isAuthenticated();
   }
-  login() {
-    console.log("Logging in");
+  login(): void {
+    console.log('Logging in');
     this.authService.login();
-    console.log("Logging in -> setting isUserLoggedIn");
+    console.log('Logging in -> setting isUserLoggedIn');
     this.isUserLoggedIn = this.authService.isAuthenticated();
 
   }
-  getUsername() {
+  setUsername(): void {
     this.authService.getUsername(localStorage.getItem('subject'), localStorage.getItem('bearer_token'))
-      .subscribe(username => this.username = (JSON.parse(JSON.stringify(username))).username);
+      .subscribe(username => {
+        localStorage.setItem('username', (JSON.parse(JSON.stringify(username))).username);
+        this.username = localStorage.getItem('username');
+      });
   }
 }

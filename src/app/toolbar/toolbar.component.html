@@ -1,12 +1,24 @@
-<mat-toolbar>
-    <span>Cash Movie</span>
+<div>
+  <mat-toolbar class="bg-primary">
+      <a routerLink="/home"><h1 class="display-3">Ca$h Movie</h1></a>
     <span class="spacer"></span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <a routerLink="/home">Home</a>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <a routerLink="/upload">Upload</a>
-    </button>
-  <app-authentication></app-authentication>
+    <div class="float-right">
+      <button type="button" class="btn btn-outline-warning btn-lg" style="margin: 10px;" routerLink="/home">Home</button>
+      <button type="button" class="btn btn-outline-info btn-lg" style="margin: 10px;" routerLink="/upload">Upload</button>
+      <app-authentication></app-authentication>
+    </div>
   </mat-toolbar>
+</div>
+
+<!--<mat-toolbar>-->
+<!--  <h1>Cash Movie</h1>-->
+<!--  <span class="spacer"></span>-->
+<!--  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
+<!--    <a routerLink="/home">Home</a>-->
+<!--  </button>-->
+<!--  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
+<!--    <a routerLink="/upload">Upload</a>-->
+<!--  </button>-->
+<!--  <app-authentication></app-authentication>-->
+<!--</mat-toolbar>-->
 <router-outlet></router-outlet>
