@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { AuthenticationService } from '../services/authentication.service';
 export class AuthenticationComponent implements OnInit {
   // public userId;
 
-  constructor(public authService: AuthenticationService) { }
+  constructor(public authService: AuthenticationService, private router: Router) { }
 
   public isUserLoggedIn: boolean;
   public username: string;
@@ -40,11 +41,12 @@ export class AuthenticationComponent implements OnInit {
                                           }}, 500);
   ngOnInit(): void { }
   logout(): void {
+    localStorage.setItem('callback', this.router.url);
     this.authService.logout();
     this.isUserLoggedIn = this.authService.isAuthenticated();
   }
   login(): void {
-    console.log('Logging in');
+    localStorage.setItem('callback', this.router.url);
     this.authService.login();
     this.isUserLoggedIn = this.authService.isAuthenticated();
   }

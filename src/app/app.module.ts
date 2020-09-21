@@ -16,6 +16,7 @@ import { UploadPageComponent } from './upload-page/upload-page.component';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SuccessPopupComponent } from './success-popup/success-popup.component';
+import { CallbackComponent } from './callback/callback.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SuccessPopupComponent } from './success-popup/success-popup.component';
     AuthenticationComponent,
     UploadPageComponent,
     UploadFormComponent,
-    SuccessPopupComponent
+    SuccessPopupComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
