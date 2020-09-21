@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UploadFormComponent } from '../upload-form/upload-form.component';
 
 @Component({
   selector: 'app-upload-page',

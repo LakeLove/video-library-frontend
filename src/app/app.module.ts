@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -16,14 +16,6 @@ import { UploadPageComponent } from './upload-page/upload-page.component';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SuccessPopupComponent } from './success-popup/success-popup.component';
-
-import { ConfigurationService } from './services/configuration.service';
-
-export function initApp(configService: ConfigurationService) {
-  return (): Promise<any> => {
-    return configService.initApp();
-  };
-}
 
 @NgModule({
   declarations: [
@@ -47,14 +39,7 @@ export function initApp(configService: ConfigurationService) {
     ReactiveFormsModule,
     MatDialogModule
   ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initApp,
-      deps: [ConfigurationService],
-      multi: true
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -27,9 +27,6 @@ export class UploadFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.uploadVideo = {id: null, title: '', author: '', filePath: '', date: null, description: ''};
-    // !!! Take me out
-    // const successDialog = this.dialog.open(SuccessPopupComponent, {data: {}});
-
   }
 
 
