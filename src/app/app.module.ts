@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SuccessPopupComponent } from './success-popup/success-popup.component';
 
 import { ConfigurationService } from './services/configuration.service';
+import { CallbackComponent } from './callback/callback.component';
 
 export function initApp(configService: ConfigurationService) {
   return (): Promise<any> => {
@@ -35,7 +36,8 @@ export function initApp(configService: ConfigurationService) {
     AuthenticationComponent,
     UploadPageComponent,
     UploadFormComponent,
-    SuccessPopupComponent
+    SuccessPopupComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,

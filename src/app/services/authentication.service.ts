@@ -10,7 +10,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 })
 export class AuthenticationService {
 
-  private auth0;
+  private auth0 : auth0.WebAuth;
+  public callbackUrl: string;
 
   constructor(private router: Router, private http: HttpClient, private configService: ConfigurationService) {
     this.callAuth0();
@@ -21,10 +22,13 @@ export class AuthenticationService {
           clientID: this.configService.clientID,
           domain: this.configService.domain,
           responseType: 'token id_token',
-          redirectUri: 'https://cashmovie.herokuapp.com',
-          // redirectUri: 'http://localhost:4200',
+          redirectUri: 'http://localhost:4200/callback',
           scope: 'openid read:user_idp_tokens read:users'
         });
+  }
+
+  public setUrl(url : string): void {
+    this.callbackUrl = url;
   }
 
   public login(): void {
@@ -36,7 +40,7 @@ export class AuthenticationService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this.setSession(authResult);
-        this.router.navigate(['/']);
+        //this.router.navigate(['/']);
       } else if (err) {
         this.router.navigate(['/']);
         console.log(err);
@@ -57,8 +61,7 @@ export class AuthenticationService {
 
   public logout(): void {
     this.auth0.logout({
-      returnTo: 'https://cashmovie.herokuapp.com/home'
-      // returnTo: 'http://localhost:4200'
+      returnTo: 'http://localhost:4200/callback'
     });
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
@@ -76,6 +79,10 @@ export class AuthenticationService {
     return this.http
       .get<string>(`https://channel-cashmoney.us.auth0.com/api/v2/users/${userId}?fields=username&include_fields=true`,
       {headers: new HttpHeaders().set('authorization', `Bearer ${idToken}`)});
+  }
+
+  public handleReroute(): void {
+    this.router.navigateByUrl(localStorage.getItem('callback'));
   }
 
 }
