@@ -10,6 +10,7 @@ export class AuthenticationService {
 
   private auth0 : auth0.WebAuth;
   public callbackUrl: string;
+  public isLoggedIn: boolean = false;
 
   constructor(private router: Router, private http: HttpClient) {
     this.callAuth0();
@@ -21,8 +22,8 @@ export class AuthenticationService {
       clientID: 'SuV6X5oMHwf32MnD05J6TjPjjfQRNJnf',
       domain: 'channel-cashmoney.us.auth0.com',
       responseType: 'token id_token',
-      redirectUri: 'https://cashmovie.herokuapp.com/callback',
-      // redirectUri: 'http://localhost:4200',
+      //redirectUri: 'https://cashmovie.herokuapp.com/callback',
+      redirectUri: 'http://localhost:4200',
       scope: 'openid read:user_idp_tokens read:users'
     });
   }
@@ -59,7 +60,8 @@ export class AuthenticationService {
 
   public logout(): void {
     this.auth0.logout({
-      returnTo: 'https://cashmovie.herokuapp.com/callback'
+      //returnTo: 'https://cashmovie.herokuapp.com/callback'
+      returnTo: 'http://localhost:4200/callback'
     });
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
