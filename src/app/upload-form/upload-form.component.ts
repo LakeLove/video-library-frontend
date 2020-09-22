@@ -15,23 +15,26 @@ export class UploadFormComponent implements OnInit {
 
   uploadVideo: Video;
   uploadForm;
+  private readonly usernameCheck: NodeJS.Timeout;
+  username: string;
 
   constructor(private videoService: VideoService, private formBuilder: FormBuilder, private dialog: MatDialog) {
     this.uploadForm = this.formBuilder.group({
       title: '',
-      author: localStorage.getItem('username'),
+      author: localStorage.getItem('username') as string,
       description: '',
       file: [null, Validators.required]
     });
+    this.usernameCheck = setInterval( () => {
+      this.username = localStorage.getItem('username');
+      if (this.username != null) {
+        this.uploadForm.patchValue({author: this.username});
+        clearInterval(this.usernameCheck); } }, 500);
   }
 
   ngOnInit(): void {
     this.uploadVideo = {id: null, title: '', author: '', filePath: '', date: null, description: ''};
-    // !!! Take me out
-    // const successDialog = this.dialog.open(SuccessPopupComponent, {data: {}});
-
   }
-
 
   onSubmit(uploadData): void {
     console.log('Success');

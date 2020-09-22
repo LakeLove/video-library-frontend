@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -16,14 +16,11 @@ import { UploadPageComponent } from './upload-page/upload-page.component';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SuccessPopupComponent } from './success-popup/success-popup.component';
+import { CallbackComponent } from './callback/callback.component';
 
-import { ConfigurationService } from './services/configuration.service';
+import { AuthenticationGuard } from './services/authentication.guard';
 
-export function initApp(configService: ConfigurationService) {
-  return (): Promise<any> => {
-    return configService.initApp();
-  };
-}
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +32,8 @@ export function initApp(configService: ConfigurationService) {
     AuthenticationComponent,
     UploadPageComponent,
     UploadFormComponent,
-    SuccessPopupComponent
+    SuccessPopupComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -48,12 +46,8 @@ export function initApp(configService: ConfigurationService) {
     MatDialogModule
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initApp,
-      deps: [ConfigurationService],
-      multi: true
-    }
+    AuthenticationService,
+    AuthenticationGuard
   ],
   bootstrap: [AppComponent]
 })
