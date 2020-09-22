@@ -18,6 +18,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SuccessPopupComponent } from './success-popup/success-popup.component';
 import { CallbackComponent } from './callback/callback.component';
 
+import { AuthenticationGuard } from './services/authentication.guard';
+
+import { AuthenticationService } from './services/authentication.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +45,10 @@ import { CallbackComponent } from './callback/callback.component';
     ReactiveFormsModule,
     MatDialogModule
   ],
-  providers: [],
+  providers: [
+    AuthenticationService,
+    AuthenticationGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

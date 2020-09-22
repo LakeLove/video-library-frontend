@@ -11,9 +11,7 @@ import { GlobalsService } from '../services/globals.service';
 })
 export class AuthenticationComponent implements OnInit {
   // public userId;
-
   constructor(public authService: AuthenticationService, private router: Router, private globals: GlobalsService) { }
-
   public isUserLoggedIn: boolean;
   public username: string;
   private check = 0;
@@ -24,16 +22,21 @@ export class AuthenticationComponent implements OnInit {
                                           console.log('authCheck: check #' + this.check);
                                           console.log('authCheck: isUserLoggedIn is ' + this.isUserLoggedIn);
                                           console.log('authCheck: username is ' + localStorage.getItem('username'));
-                                          if (this.isUserLoggedIn && localStorage.getItem('username') != null) {
-                                            this.globals.setValue(true);
-                                            console.log('authCheck: Setting username');
-                                            this.setUsername();
-                                            console.log('authCheck: Clearing interval');
-                                            clearInterval(this.authCheck);
-                                          } else if (this.isUserLoggedIn && this.check === 50) {
-                                            console.log('authCheck: Getting username');
-                                            this.authService.getUsername();
-                                            this.check = 0;
+                                          if (this.isUserLoggedIn) {
+                                            if (localStorage.getItem('username') != null) {
+                                              this.globals.setValue(true);
+                                              console.log('authCheck: Setting username');
+                                              this.setUsername();
+                                              console.log('authCheck: Clearing interval');
+                                              clearInterval(this.authCheck);
+                                            }
+                                            else if (this.check === 25) {
+                                              console.log('authCheck: Getting username');
+                                              this.authService.getUsername();
+                                              this.check = 0;
+                                            } else if (this.check > 50) {
+                                              this.authService.login();
+                                            }
                                           } else if (!this.isUserLoggedIn && this.check === 5) {
                                             if (localStorage.getItem('username') != null) {
                                               console.log('authCheck: Logging out');
@@ -42,7 +45,8 @@ export class AuthenticationComponent implements OnInit {
                                             console.log('authCheck: Clearing interval');
                                             clearInterval(this.authCheck);
                                           }}, 500);
-  ngOnInit(): void { }
+  ngOnInit(): void {  }
+
   logout(): void {
     localStorage.setItem('callback', this.router.url);
     this.authService.logout();
