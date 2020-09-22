@@ -4,7 +4,7 @@
     <span class="spacer"></span>
     <div class="float-right">
       <button type="button" class="btn btn-outline-warning btn-lg" style="margin: 10px;" routerLink="/home">Home</button>
-      <button type="button" class="btn btn-outline-info btn-lg" style="margin: 10px;" routerLink="/upload">Upload</button>
+      <button type="button" class="btn btn-outline-info btn-lg" style="margin: 10px;" routerLink="/upload" *ngIf="loggedIn">Upload</button>
       <app-authentication></app-authentication>
     </div>
   </mat-toolbar>

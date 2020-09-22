@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
 import { HttpClient} from '@angular/common/http';
+import { GlobalsService } from './globals.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,13 @@ export class AuthenticationService {
 
   private auth0: auth0.WebAuth;
   public callbackUrl: string;
+  public isLoggedIn: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private globals: GlobalsService) {
     this.callAuth0();
+    this.globals.getValue().subscribe((value) => {
+      this.isLoggedIn = value;
+    });
   }
 
   callAuth0(): void {
@@ -81,7 +86,13 @@ export class AuthenticationService {
   }
 
   public handleReroute(): void {
-    this.router.navigateByUrl(localStorage.getItem('callback'));
+    const callback = localStorage.getItem('callback');
+    if(!this.isLoggedIn && callback==='/upload'){
+      console.log("We need to go home")
+      this.router.navigateByUrl('/home');
+    }
+    else{
+      this.router.navigateByUrl(localStorage.getItem('callback'));
+    }    
   }
-
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
+import { GlobalsService } from '../services/globals.service';
 
 @Component({
   selector: 'app-authentication',
@@ -9,7 +11,7 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class AuthenticationComponent implements OnInit {
   // public userId;
-  constructor(public authService: AuthenticationService, private router: Router) { }
+  constructor(public authService: AuthenticationService, private router: Router, private globals: GlobalsService) { }
   public isUserLoggedIn: boolean;
   public username: string;
   private check = 0;
@@ -22,6 +24,7 @@ export class AuthenticationComponent implements OnInit {
                                           console.log('authCheck: username is ' + localStorage.getItem('username'));
                                           if (this.isUserLoggedIn) {
                                             if (localStorage.getItem('username') != null) {
+                                              this.globals.setValue(true);
                                               console.log('authCheck: Setting username');
                                               this.setUsername();
                                               console.log('authCheck: Clearing interval');
@@ -48,6 +51,7 @@ export class AuthenticationComponent implements OnInit {
     localStorage.setItem('callback', this.router.url);
     this.authService.logout();
     this.isUserLoggedIn = this.authService.isAuthenticated();
+    this.globals.setValue(this.isUserLoggedIn);
   }
   login(): void {
     localStorage.setItem('callback', this.router.url);
