@@ -11,7 +11,7 @@ export class AuthenticationService {
 
   private auth0: auth0.WebAuth;
   public callbackUrl: string;
-  public isLoggedIn: boolean = false;
+  public isLoggedIn = false;
 
   constructor(private router: Router, private http: HttpClient, private globals: GlobalsService) {
     this.callAuth0();
@@ -87,12 +87,12 @@ export class AuthenticationService {
 
   public handleReroute(): void {
     const callback = localStorage.getItem('callback');
-    if(!this.isLoggedIn && callback==='/upload'){
-      console.log("We need to go home")
+    if (!this.isLoggedIn && callback === '/upload'){
+      console.log('We need to go home');
       this.router.navigateByUrl('/home');
     }
     else{
       this.router.navigateByUrl(localStorage.getItem('callback'));
-    }    
+    }
   }
 }
