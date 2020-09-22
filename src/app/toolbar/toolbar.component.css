@@ -1,3 +1,23 @@
 .spacer {
     flex: 1 1 auto;
   }
+
+a:link, a:visited {
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  margin: auto auto auto 10px;
+  position: relative;
+}
+
+a:hover, a:active {
+  color: teal;
+}
+
+a {
+  color: white;
+}
+
+mat-toolbar {
+  display: inline-table;
+}

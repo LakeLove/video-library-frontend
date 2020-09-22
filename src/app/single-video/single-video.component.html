@@ -1,19 +1,14 @@
 <div *ngIf="video">
-<body>
-  <div class="video-wrapper">    
-    <video controls="controls" width="800" height="600" name="Video Name" [src]="video.filePath"></video>
-    <div class = "video-info">
-      <h2 class="title">{{video.title}}</h2>
-      <div class = "auth-date">
-        <h3 class="author">Uploaded By: {{video.author}}  |  {{video.date | date:'longDate'}}</h3>
-      </div>       
-    </div>
-    <div class = "description-wrapper">
-      <p class="description">{{video.description}}</p>
-    </div>    
-    <app-video-comments [videoId]="video.id"></app-video-comments>
+  <div class="d-flex w-100 flex-column align-items-start">
+    <video controls="controls"  name="Video Name" [src]="video.filePath"></video>
   </div>
-</body>
-  
+  <div id="video-title" class="list-group-item flex-column align-items-start active d-flex w-100 justify-content-between" >
+    <h1 class="display-3">{{video.title}}</h1>
+    <div class="d-flex w-100 justify-content-between">
+      <h1>{{video.author}}</h1>
+      <h2 class="text-muted">{{video.date | date:'longDate'}}</h2>
+    </div>
+    <p class="lead">{{video.description}}</p>
+  </div>
+  <app-video-comments [videoId]="video.id"></app-video-comments>
 </div>
-

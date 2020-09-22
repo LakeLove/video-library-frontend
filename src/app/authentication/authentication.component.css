@@ -2,7 +2,6 @@
   display: none;
 }
 
-label {
-  margin-bottom: 10px;
-  display: block;
+.btn-lg {
+  margin: 10px;
 }

@@ -1,6 +1,14 @@
-<h1 mat-dialog-title>{{video.title}} upload successful!</h1>
-
-<div mat-dialog-actions>
-    <a routerLink="/videos/{{video.id}}"><button mat-button mat-dialog-close>Go To Video</button></a>
-    <button mat-button mat-dialog-close>Upload Another</button>
+<div class="success-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 mat-dialog-title class="modal-title display-4">{{video.title}} upload successful!</h1>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div mat-dialog-actions class="modal-footer">
+      <button mat-dialog-close type="button" class="btn btn-primary" routerLink="/videos/{{video.id}}">Go To Video</button>
+      <button mat-dialog-close type="button" class="btn btn-secondary" data-dismiss="modal">Upload Another</button>
+    </div>
+  </div>
 </div>

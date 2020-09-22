@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Video } from '../video';
 import { VideoService } from '../services/video.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
 import { Location } from '@angular/common';
 
 
@@ -14,18 +13,18 @@ import { Location } from '@angular/common';
 export class SingleVideoComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-    private videoService: VideoService,
-    private location: Location) { }
+              private videoService: VideoService,
+              private location: Location) { }
 
-  video : Video
+  video: Video;
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    console.log(`Id = ${id}`)
-    this.getVideo(id)
+    console.log(`Id = ${id}`);
+    this.getVideo(id);
   }
 
-  getVideo(id: number){
+  getVideo(id: number): void {
     this.videoService.getVideo(id).subscribe(video => this.video = video);
   }
 
