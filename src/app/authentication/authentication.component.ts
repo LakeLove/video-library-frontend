@@ -30,11 +30,11 @@ export class AuthenticationComponent implements OnInit {
                                               console.log('authCheck: Clearing interval');
                                               clearInterval(this.authCheck);
                                             }
-                                            else if (this.check === 25) {
+                                            else if (this.check === 15) {
                                               console.log('authCheck: Getting username');
                                               this.authService.getUsername();
                                               this.check = 0;
-                                            } else if (this.check > 50) {
+                                            } else if (this.check > 30) {
                                               this.authService.login();
                                             }
                                           } else if (!this.isUserLoggedIn && this.check === 5) {
