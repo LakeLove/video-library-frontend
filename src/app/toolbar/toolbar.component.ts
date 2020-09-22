@@ -1,4 +1,6 @@
 import { Component, OnInit} from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
+import { GlobalsService } from '../services/globals.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,8 +9,13 @@ import { Component, OnInit} from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-   constructor() { }
+  public loggedIn: boolean; 
+  constructor(public globals: GlobalsService) { }
 
-   ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.globals.getValue().subscribe((value) => {
+      this.loggedIn = value;
+    });
+  }
 
 }
