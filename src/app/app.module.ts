@@ -21,6 +21,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { AuthenticationGuard } from './services/authentication.guard';
 
 import { AuthenticationService } from './services/authentication.service';
+import { FailurePopupComponent } from './failure-popup/failure-popup.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AuthenticationService } from './services/authentication.service';
     UploadPageComponent,
     UploadFormComponent,
     SuccessPopupComponent,
-    CallbackComponent
+    CallbackComponent,
+    FailurePopupComponent
   ],
   imports: [
     BrowserModule,

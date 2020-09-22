@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SuccessPopupComponent } from '../success-popup/success-popup.component';
 import { VideoService } from '../services/video.service';
+import { FailurePopupComponent } from '../failure-popup/failure-popup.component';
 
 @Component({
   selector: 'app-upload-form',
@@ -52,9 +53,21 @@ export class UploadFormComponent implements OnInit {
       const uploadPromise = this.videoService.postVideo(this.uploadVideo).toPromise();
       uploadPromise.then((uploaded) => {
         const successDialog = this.dialog.open(SuccessPopupComponent, {data: uploaded});
-      });
       })
-    .catch((error) => console.log(error));
+      .catch((error) => 
+      {
+        console.log(error)
+        const uploadFailure = this.dialog.open(FailurePopupComponent, {data: "upload"})
+      }
+      );
+    })
+    .catch((error) => 
+      {
+        console.log(error)
+        const bucketFailure = this.dialog.open(FailurePopupComponent, {data: "bucket"})
+      }
+
+    );
 
     console.log(this.uploadVideo.filePath);
 
