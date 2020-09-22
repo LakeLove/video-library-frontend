@@ -13,12 +13,12 @@ export class GlobalsService {
   }
 
   getValue(): Observable<boolean> {
-    console.log(this.login.value)
-    return this.login.asObservable();    
+    console.log(this.login.value);
+    return this.login.asObservable();
   }
   setValue(newValue): void {
     this.login.next(newValue);
-    console.log(this.login.value)
+    console.log(this.login.value);
   }
 
 }
