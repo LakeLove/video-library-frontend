@@ -10,7 +10,6 @@ import { AuthenticationService } from '../services/authentication.service';
 export class AuthenticationComponent implements OnInit {
   // public userId;
   constructor(public authService: AuthenticationService, private router: Router) { }
-  public onUploadPage: boolean;
   public isUserLoggedIn: boolean;
   public username: string;
   private check = 0;
@@ -44,7 +43,7 @@ export class AuthenticationComponent implements OnInit {
                                             clearInterval(this.authCheck);
                                           }}, 500);
   ngOnInit(): void {  }
-  // setTimeout(() => this.onUploadPage = this.router.url === '/upload', 400);
+
   logout(): void {
     localStorage.setItem('callback', this.router.url);
     this.authService.logout();
