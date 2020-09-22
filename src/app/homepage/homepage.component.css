@@ -23,12 +23,13 @@ a {
 
 ul {
     list-style-type: none;
+  padding: 0;
+  margin: 2%;
 }
 
 li {
     display: inline-block;
     vertical-align: top;
-    margin: 1em;
 }
 
 .video-wrapper {
@@ -38,6 +39,7 @@ li {
 
 .video {
   background-color: white;
+  width: inherit;
 }
 
 .card-footer {
@@ -48,4 +50,8 @@ li {
 
 .card-header {
   background: rgba(255,255,255, 0.15);
+}
+
+.card-title {
+  margin-bottom: 0.25rem;
 }
