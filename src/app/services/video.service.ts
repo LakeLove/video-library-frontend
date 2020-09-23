@@ -31,6 +31,10 @@ export class VideoService {
     return this.httpClient.get<Video>(this.videoUrl + `/id=${id}`);
   }
 
+  searchVideo(term: string): Observable<Video[]>{
+    return this.httpClient.get<Video[]>(this.videoUrl + `/search/${term}`)
+  }
+
   uploadVideo(uploadVideo: File): Observable<string>{
     const endpoint = 'https://channelcashmoney.herokuapp.com/storage/uploadFile';
     const formData: FormData = new FormData();

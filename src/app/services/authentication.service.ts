@@ -27,7 +27,7 @@ export class AuthenticationService {
       domain: 'channel-cashmoney.us.auth0.com',
       responseType: 'token id_token',
       redirectUri: 'https://cashmovie.herokuapp.com/callback',
-      // redirectUri: 'http://localhost:4200/callback',
+      //redirectUri: 'http://localhost:4200/callback',
       scope: 'openid read:user_idp_tokens read:users'
     });
   }
@@ -64,7 +64,7 @@ export class AuthenticationService {
   public logout(): void {
     this.auth0.logout({
       returnTo: 'https://cashmovie.herokuapp.com/callback'
-      // returnTo: 'http://localhost:4200/callback'
+      //returnTo: 'http://localhost:4200/callback'
     });
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
