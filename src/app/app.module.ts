@@ -36,7 +36,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
     UploadFormComponent,
     SuccessPopupComponent,
     CallbackComponent,
-    SearchPageComponent
+    SearchPageComponent,
     UserVideosComponent
   ],
   imports: [
