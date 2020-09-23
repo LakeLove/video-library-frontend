@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VideoService } from '../services/video.service';
 import { Video } from '../video';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-videos',
@@ -13,7 +14,9 @@ export class UserVideosComponent implements OnInit {
   videos: Video[] = [];
   private cardClasses: string[] = ['bg-success', 'bg-secondary', 'bg-danger', 'bg-info'];
 
-  constructor(private videoService: VideoService, private route: ActivatedRoute) { }
+  constructor(private videoService: VideoService, private route: ActivatedRoute, private router: Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ngOnInit(): void {
     this.author = this.route.snapshot.paramMap.get('author');
