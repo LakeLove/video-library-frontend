@@ -17,14 +17,19 @@ export class SearchPageComponent implements OnInit {
   ctitle = 'client';
   videos: Video[] = [];
   private cardClasses: string[] = ['bg-success', 'bg-secondary', 'bg-danger', 'bg-info'];
+  term: string;
+  count: number;
 
   ngOnInit(): void{
-    const term = this.route.snapshot.paramMap.get('term');
-    this.getVideos(term);
+    this.term = this.route.snapshot.paramMap.get('term');
+    this.getVideos(this.term);
   }
 
   getVideos(term: string): void{
-      this.videoService.searchVideo(term).subscribe(videos => this.videos = videos);
+      this.videoService.searchVideo(term).subscribe(videos => 
+        {this.videos = videos;
+          this.count = videos.length;        
+        });
   }
   getCardClass(index: number): string {
     return this.cardClasses[index % 4];
