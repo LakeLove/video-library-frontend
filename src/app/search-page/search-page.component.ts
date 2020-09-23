@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VideoService } from '../services/video.service';
 import { Video } from '../video';
 
@@ -10,7 +10,9 @@ import { Video } from '../video';
 })
 export class SearchPageComponent implements OnInit {
 
-  constructor(private videoService: VideoService, private route: ActivatedRoute) { }
+  constructor(private videoService: VideoService, private route: ActivatedRoute, private router: Router) { 
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ctitle = 'client';
   videos: Video[] = [];
