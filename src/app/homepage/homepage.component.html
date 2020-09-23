@@ -7,7 +7,7 @@
         </div>
         <video class="video" controls="controls" width="320" height="240" poster preload="metadata" name="Video Name" src={{video.filePath}}></video>
         <div class="card-body">
-          <h3 class="author">By: {{video.author}}</h3>
+          <h3 class="author">By: <a routerLink="/videos/user/{{video.author}}">{{video.author}}</a></h3>
           <p class="card-text lead text-center">{{video.description}}</p>
         </div>
         <div class="card-footer text-muted">{{video.date | date:'mediumDate'}}</div>
