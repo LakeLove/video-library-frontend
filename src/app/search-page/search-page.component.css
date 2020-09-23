@@ -1,0 +1,57 @@
+.video-title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a:link, a:visited {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: auto;
+    position: relative;
+}
+
+a:hover, a:active {
+    color: teal;
+}
+
+a {
+  color: white;
+}
+
+ul {
+    list-style-type: none;
+  padding: 0;
+  margin: 2%;
+}
+
+li {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.video-wrapper {
+    align-items: center;
+    justify-content: center;
+}
+
+.video {
+  background-color: white;
+  width: inherit;
+}
+
+.card-footer {
+  text-align: right;
+  background: rgba(255,255,255, 0.15);
+  color: white !important;
+}
+
+.card-header {
+  background: rgba(255,255,255, 0.15);
+}
+
+.card-title {
+  margin-bottom: 0.25rem;
+}
