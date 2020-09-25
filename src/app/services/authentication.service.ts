@@ -1,29 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
-import { Observable } from 'rxjs';
-import { ConfigurationService } from '../services/configuration.service';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
+import { GlobalsService } from './globals.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private auth0;
+  private auth0: auth0.WebAuth;
+  public callbackUrl: string;
+  public isLoggedIn = false;
 
-  constructor(private router: Router, private http: HttpClient, private configService: ConfigurationService) {
+  constructor(private router: Router, private http: HttpClient, private globals: GlobalsService) {
     this.callAuth0();
+    this.globals.getValue().subscribe((value) => {
+      this.isLoggedIn = value;
+    });
   }
 
   callAuth0(): void {
     this.auth0 = new auth0.WebAuth({
-          clientID: this.configService.clientID,
-          domain: this.configService.domain,
-          responseType: 'token id_token',
-          redirectUri: 'https://cashmovie.herokuapp.com',
-          scope: 'openid read:user_idp_tokens read:users'
-        });
+      // "Client ID is considered public information" https://auth0.com/docs/get-started/dashboard/application-settings
+      clientID: 'SuV6X5oMHwf32MnD05J6TjPjjfQRNJnf',
+      domain: 'channel-cashmoney.us.auth0.com',
+      responseType: 'token id_token',
+      redirectUri: 'https://cashmovie.herokuapp.com/callback',
+      //redirectUri: 'http://localhost:4200/callback',
+      scope: 'openid read:user_idp_tokens read:users'
+    });
+  }
+
+  public setUrl(url: string): void {
+    this.callbackUrl = url;
   }
 
   public login(): void {
@@ -35,7 +45,6 @@ export class AuthenticationService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this.setSession(authResult);
-        this.router.navigate(['/']);
       } else if (err) {
         this.router.navigate(['/']);
         console.log(err);
@@ -44,35 +53,46 @@ export class AuthenticationService {
   }
 
   private setSession(authResult): void {
-    var base64Url = authResult.idToken.split('.')[1];
-    var sub = (JSON.parse(window.atob(base64Url))).sub;
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('subject', sub);
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    console.log("Loading local storage");
+    console.log('Loading local storage');
+    this.getUsername();
   }
 
   public logout(): void {
     this.auth0.logout({
-      returnTo: 'https://cashmovie.herokuapp.com/home'
+      returnTo: 'https://cashmovie.herokuapp.com/callback'
+      //returnTo: 'http://localhost:4200/callback'
     });
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
-    localStorage.removeItem('subject');
+    localStorage.removeItem('username');
   }
 
   public isAuthenticated(): boolean {
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+    return new Date().getTime() < expiresAt && expiresAt != null;
   }
 
-  public getUsername(user_id: string, id_token: string): Observable<String> {
-    return this.http
-      .get<String>(`https://channel-cashmoney.us.auth0.com/api/v2/users/${user_id}?fields=username&include_fields=true`,
-      {headers: new HttpHeaders().set('authorization', `Bearer ${id_token}`)});
+  public getUsername(): void {
+    const idToken = JSON.stringify(localStorage.getItem('id_token'));
+    const base64Url = idToken.split('.')[1];
+    const sub = (JSON.parse(window.atob(base64Url))).sub;
+    const result = this.http.get<string>(`https://channelcashmoney.herokuapp.com/api/users/id=${sub}`);
+    result.subscribe(username => localStorage.setItem('username', JSON.parse(JSON.stringify(username))));
   }
 
+  public handleReroute(): void {
+    const callback = localStorage.getItem('callback');
+    if (!this.isLoggedIn && callback === '/upload'){
+      console.log('We need to go home');
+      this.router.navigateByUrl('/home');
+    }
+    else{
+      this.router.navigateByUrl(localStorage.getItem('callback'));
+    }
+  }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
-import { ConfigurationService } from '../services/configuration.service';
+import { GlobalsService } from '../services/globals.service';
 
 @Component({
   selector: 'app-authentication',
@@ -8,39 +10,55 @@ import { ConfigurationService } from '../services/configuration.service';
   styleUrls: ['./authentication.component.css'],
 })
 export class AuthenticationComponent implements OnInit {
-
+  // public userId;
+  constructor(public authService: AuthenticationService, private router: Router, private globals: GlobalsService) { }
   public isUserLoggedIn: boolean;
-  public hasUsername: boolean;
-  public username;
-  public userId;
+  public username: string;
+  private check = 0;
+  private authCheck = setInterval( () => {this.isUserLoggedIn = this.authService.isAuthenticated();
+  // this.userId = localStorage.getItem('userid');
+                                          console.log('authCheck: Initializing');
+                                          this.check++;
+                                          console.log('authCheck: check #' + this.check);
+                                          console.log('authCheck: isUserLoggedIn is ' + this.isUserLoggedIn);
+                                          console.log('authCheck: username is ' + localStorage.getItem('username'));
+                                          if (this.isUserLoggedIn) {
+                                            if (localStorage.getItem('username') != null) {
+                                              this.globals.setValue(true);
+                                              console.log('authCheck: Setting username');
+                                              this.setUsername();
+                                              console.log('authCheck: Clearing interval');
+                                              clearInterval(this.authCheck);
+                                            }
+                                            else if (this.check === 15) {
+                                              console.log('authCheck: Getting username');
+                                              this.authService.getUsername();
+                                              this.check = 0;
+                                            } else if (this.check > 30) {
+                                              this.authService.login();
+                                            }
+                                          } else if (!this.isUserLoggedIn && this.check === 5) {
+                                            if (localStorage.getItem('username') != null) {
+                                              console.log('authCheck: Logging out');
+                                              this.logout();
+                                            }
+                                            console.log('authCheck: Clearing interval');
+                                            clearInterval(this.authCheck);
+                                          }}, 500);
+  ngOnInit(): void {  }
 
-  constructor(public authService: AuthenticationService, public configService: ConfigurationService) { }
-
-  ngOnInit() {
-    setTimeout( () => {this.isUserLoggedIn = this.authService.isAuthenticated();
-                       this.userId = localStorage.getItem('userid');
-                       console.log("Initializing");
-                       this.hasUsername = localStorage.getItem('subject') != null && localStorage.getItem('bearer_token') != null;
-                       if (this.hasUsername && this.username == null) {
-                        this.getUsername();
-                        console.log("Getting username");
-                       }
-                       }, 500);
-  }
-  logout() {
+  logout(): void {
+    localStorage.setItem('callback', this.router.url);
     this.authService.logout();
-    localStorage.removeItem('bearer_token');
     this.isUserLoggedIn = this.authService.isAuthenticated();
+    this.globals.setValue(this.isUserLoggedIn);
   }
-  login() {
-    console.log("Logging in");
+  login(): void {
+    localStorage.setItem('callback', this.router.url);
     this.authService.login();
-    console.log("Logging in -> setting isUserLoggedIn");
     this.isUserLoggedIn = this.authService.isAuthenticated();
-
   }
-  getUsername() {
-    this.authService.getUsername(localStorage.getItem('subject'), localStorage.getItem('bearer_token'))
-      .subscribe(username => this.username = (JSON.parse(JSON.stringify(username))).username);
+  setUsername(): void {
+    this.username = localStorage.getItem('username') as string;
   }
 }

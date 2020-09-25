@@ -1,6 +1,14 @@
-.comment-in {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
+
+.comment-text {
+  font-size: xx-large;
+}
+#comment-group {
+  margin: 2%
+}
+card-subtitle {
+  font-size: x-large;
+}
+
+#comment-entry {
+  font-size: x-large;
 }

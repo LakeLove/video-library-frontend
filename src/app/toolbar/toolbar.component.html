@@ -1,12 +1,21 @@
-<mat-toolbar>
-    <span>Cash Movie</span>
+<div class = "toolbarWrapper">
+  <mat-toolbar class="bg-primary">
+      <a routerLink="/home"><h1 class="display-3">Ca$h Movie</h1></a>
     <span class="spacer"></span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <a routerLink="/home">Home</a>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <a routerLink="/upload">Upload</a>
-    </button>
-  <app-authentication></app-authentication>
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
+      <div class="form-group">
+        <input id="term" name="term" type="text" class="form-control form-control-lg" formControlName="term" placeholder="Enter a search term" required >
+      </div>
+      <div class ="buttonWrapper">
+        <button type="submit" class="btn btn-danger btn-lg">Search</button>
+      </div>
+    </form>
+    <div class="float-right">
+      <button type="button" class="btn btn-outline-warning btn-lg" style="margin: 10px;" routerLink="/home">Home</button>
+      <button type="button" class="btn btn-outline-info btn-lg" style="margin: 10px;" routerLink="/upload" *ngIf="loggedIn">Upload</button>
+      <app-authentication></app-authentication>
+    </div>
   </mat-toolbar>
+</div>
+
 <router-outlet></router-outlet>

@@ -1,20 +1,16 @@
-<h2>All Videos</h2>
 <div>
-  <!-- (click) passes input value to add() and then clears the input -->
-</div>
-<ul class="videos">
-  <li *ngFor="let video of videos">
-    <div class="video-thumbnail">
-      <div class="video-wrapper">
-        <div class="video-title">
-          <a routerLink="/videos/{{video.id}}">{{video.title}}</a>
+  <h1 class="display-1 text-center" style="margin-top: 20px;"><span class="badge badge-light">Recent Videos</span></h1>
+    <ul class="videos card-columns">
+      <li *ngFor="let video of videos; index as i;" class="text-white card" [ngClass]="getCardClass(i)">
+        <div class="video-title card-header">
+          <a routerLink="/videos/{{video.id}}"><h2 class="display-4 card-title">{{video.title}}</h2></a>
         </div>
-        <video class="video" controls="controls" width="320" height="240"
-              name="Video Name" src={{video.filePath}}></video>
-        <h3 class="author">By: {{video.author}}</h3>
-        <p class="description">{{video.description}}</p>
-      </div>
-    </div>
-  </li>
-</ul>
+        <video class="video" controls="controls" width="320" height="240" poster preload="metadata" name="Video Name" src={{video.filePath}}></video>
+        <div class="card-body">
+          <h3 class="author">By: <a routerLink="/videos/user/{{video.author}}">{{video.author}}</a></h3>
+        </div>
+        <div class="card-footer text-muted">{{video.date | date:'mediumDate'}}</div>
+      </li>
+    </ul>
+</div>
 <router-outlet></router-outlet>

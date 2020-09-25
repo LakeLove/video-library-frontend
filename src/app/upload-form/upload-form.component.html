@@ -1,37 +1,40 @@
-<div class="formWrapper">
-<form [formGroup]="uploadForm" (ngSubmit)="onSubmit(uploadForm.value)">
-
-    <div>
-        <label for="title">
-          Title
-        </label>
-        <input id="title" type="text" formControlName="title">
+<h1 class="display-1 text-center" style="margin-top: 20px; margin-bottom: 20px"><span class="badge badge-light">Upload</span></h1>
+<div class="jumbotron bg-secondary text-white">
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit(uploadForm.value)">
+    <div class="form-group">
+      <label class="col-form-label col-form-label-lg " for="title">Title</label>
+      <input id="title" name="title" type="text" class="form-control form-control-lg" formControlName="title" placeholder="Title of your video" required >
+      <div *ngIf="title.invalid && (title.dirty || title.touched)"
+        class="alert alert-danger">
+        <div *ngIf="title.errors.required">
+          Title is required.
+        </div>
+        <div *ngIf="title.errors.minLength">
+          Title must be between 2-20 characters
+        </div>
+        <div *ngIf="title.errors.maxLength">
+          Title must be between 2-20 characters
+        </div>
       </div>
-    
-      <div>
-        <label for="author">
-          Author
-        </label>
-        <input id="author" type="text" formControlName="author">
-      </div>
-
-      <div>
-        <label for="description">
-          Description
-        </label>
-        <input id="description" type="text" formControlName="description">
-      </div>
-
-      <div>
-        <label for="file">
-          Select Video File
-        </label>
-        <input type="file" (change)="onFileChange($event)" placeholder="Upload file" accept=".MOV,.mp4">
-      </div>
-
-
-    <div class = "buttonWrapper">
-      <button class="button" type="submit">Upload</button>
     </div>
-</form>
+    <div class="form-group">
+      <fieldset disabled="">
+        <label class="col-form-label col-form-label-lg text" for="author">Author</label>
+        <input class="form-control form-control-lg" id="author" type="text" readonly="" disabled="" formControlName="author">
+      </fieldset>
+    </div>
+    <div class="form-group">
+      <label class="col-form-label col-form-label-lg" for="description">Description</label>
+      <textarea class="form-control form-control-lg" id="description" rows="3" formControlName="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="col-form-label col-form-label-lg" for="file">Select Video File</label>
+      <p>
+        <label class="form-control-lg"><input id="file" type="file" (change)="onFileChange($event)" placeholder="Upload file" accept=".MOV,.mp4"></label>
+      </p>
+    </div>
+    <div class ="buttonWrapper">
+      <button type="submit" class="btn btn-danger btn-lg">Upload</button>
+    </div>
+  </form>
 </div>

@@ -9,16 +9,20 @@ import { VideoService } from '../services/video.service';
 })
 export class HomepageComponent implements OnInit {
 
-  ctitle = 'client';
-  videos: Video[] = []
-
   constructor(private videoService: VideoService) { }
 
-  ngOnInit(){
-    this.getVideos()
+  ctitle = 'client';
+  videos: Video[] = [];
+  private cardClasses: string[] = ['bg-success', 'bg-secondary', 'bg-danger', 'bg-info'];
+
+  ngOnInit(): void{
+    this.getVideos();
   }
 
-  getVideos(){
+  getVideos(): void{
       this.videoService.getAllVideos().subscribe(videos => this.videos = videos);
+  }
+  getCardClass(index: number): string {
+    return this.cardClasses[index % 4];
   }
 }

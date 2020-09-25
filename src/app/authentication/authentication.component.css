@@ -2,7 +2,17 @@
   display: none;
 }
 
-label {
-  margin-bottom: 10px;
-  display: block;
+.btn-lg {
+  margin: 10px;
+}
+
+a:link, a:visited {
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+}
+
+a:hover, a:active {
+  color: teal !important;
 }
