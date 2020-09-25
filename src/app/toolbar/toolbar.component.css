@@ -1,6 +1,7 @@
 .spacer {
     flex: 1 1 auto;
-  }
+    display: inline-block;
+}
 
 a:link, a:visited {
   text-decoration: none;
@@ -19,5 +20,26 @@ a {
 }
 
 mat-toolbar {
-  display: inline-table;
+  display: inline-block;
+}
+
+form {
+  width: 20%;
+  display: inline-block;
+  margin-left: 10%;
+  height: 100%;
+}
+
+.form-group{
+  display: inline-block;
+  width: 80%;
+}
+
+.buttonWrapper{
+  display: inline-block;
+}
+
+.toolbarWrapper {
+  display: inline-block;
+  width: 100%;
 }
