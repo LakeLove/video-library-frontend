@@ -22,6 +22,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { AuthenticationGuard } from './services/authentication.guard';
 
 import { AuthenticationService } from './services/authentication.service';
+import { FailurePopupComponent } from './failure-popup/failure-popup.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 
 @NgModule({
@@ -36,6 +37,7 @@ import { SearchPageComponent } from './search-page/search-page.component';
     UploadFormComponent,
     SuccessPopupComponent,
     CallbackComponent,
+    FailurePopupComponent,
     SearchPageComponent,
     UserVideosComponent
   ],

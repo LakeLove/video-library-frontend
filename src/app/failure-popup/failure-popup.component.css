@@ -1,0 +1,17 @@
+.success-modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .mat-dialog-title {
+    margin: auto;
+  }
+  
+  .mat-dialog-actions {
+    padding: 8px 0;
+    flex-wrap: wrap;
+    min-height: 52px;
+    margin-bottom: 0;
+  }
